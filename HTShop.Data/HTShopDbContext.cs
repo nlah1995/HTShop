@@ -1,4 +1,5 @@
 ﻿using HTShop.Model.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HTShop.Data
 {
-    public class HTShopDbContext : DbContext
+    public class HTShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public HTShopDbContext() : base("HTShopConnection")
         {
@@ -35,6 +36,10 @@ namespace HTShop.Data
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Error> Errors { set; get; }
 
+        public static HTShopDbContext Create()
+        {
+            return new HTShopDbContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
